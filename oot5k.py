@@ -164,10 +164,8 @@ def review():
             db = open(file_dir + 'OOT5K.csv', 'w')
             writer = csv.writer(db, delimiter=',')
             writer.writerow(['Nickname', 'Article Type', 'Second Type', 'Color Family', 'Weather'])
-            menu()
         else:
             db = open(file_dir + 'OOT5K.csv', 'a')
-            menu()
         with db as csvfile:
             wardrobe_writer = csv.writer(csvfile, delimiter=',')
             wardrobe_writer.writerow([name, article, second_type, art_color, art_weather])
@@ -187,18 +185,18 @@ def review():
 def outfit_select():
     print 'Beep bop booooooooooooooooooooo.... p'
     # read the wardrobe database
-    colnames = ['name', 'article', 'second_type', 'art_color', 'art_weather']
+    colnames = ['name', 'article_type', 'second_type', 'art_color', 'art_weather']
     global wardrobe
     wardrobe = pd.read_csv(file_dir + 'OOT5K.csv', names=colnames, header=0).dropna(how='all')
     # read through lists and save each article type as a separate data frame
     global top
-    top = wardrobe.query('article == 1')
+    top = wardrobe.query('article_type == 1')
     global bottom
-    bottom = wardrobe.query('article == 2')
+    bottom = wardrobe.query('article_type == 2')
     global dress
-    dress = wardrobe.query('article == 3')
+    dress = wardrobe.query('article_type == 3')
     global jacket
-    jacket = wardrobe.query('article == 4')
+    jacket = wardrobe.query('article_type == 4')
     outfit_randomizer()
 
 def outfit_randomizer():
@@ -208,13 +206,13 @@ def outfit_randomizer():
     item_2 = None
     item_3 = None
     item_1 = wardrobe.ix[random.sample(wardrobe.index, 1)]
-    if item_1.iloc[0]['article'] == 1:
+    if item_1.iloc[0]['article_type'] == 1:
         item_2 = jacket.ix[random.sample(jacket.index, 1)]
         item_3 = bottom.ix[random.sample(bottom.index, 1)]
-    elif item_1.iloc[0]['article'] == 2:
+    elif item_1.iloc[0]['article_type'] == 2:
         item_2 = top.ix[random.sample(top.index, 1)]
         item_3 = jacket.ix[random.sample(jacket.index, 1)]
-    elif item_1.iloc[0]['article'] == 3:
+    elif item_1.iloc[0]['article_type'] == 3:
         item_2 = jacket.ix[random.sample(jacket.index, 1)]
         item_3 = pd.DataFrame({'name': ['']})
     else:  # if it chooses a jacket we can't easily have equal opportunity to pick a dress or top/bottom combo.
