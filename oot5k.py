@@ -26,14 +26,14 @@ def dicts():
     weather_dict = {1: 'Warm', 2: 'Cold', 3: 'Any'}
 
 def start():
-    print 'Welcome to the Outfit-o-Tron 5000! \n'
-    print 'Before we get into the fun stuff, we need to know: where do you want your outfit database to be stored (or where is it already)?'
-    print 'Type or copy and paste a file directory here, e.g. C:/Users/Tammy/Documents/  Make sure to use forward slashes!'
+    print('Welcome to the Outfit-o-Tron 5000! \n')
+    print('Before we get into the fun stuff, we need to know: where do you want your outfit database to be stored (or where is it already)?')
+    print('Type or copy and paste a file directory here, e.g. C:/Users/Tammy/Documents/  Make sure to use forward slashes!')
     global file_dir
     global db
-    file_dir = raw_input("> ")
+    file_dir = input("> ")
     if not exists(file_dir):
-        print '\n Sorry, that\'s not a valid filepath. Try again, check your spelling, and make sure to use forward slashes (/) not back slashes (\)! \n'
+        print('\n Sorry, that\'s not a valid filepath. Try again, check your spelling, and make sure to use forward slashes (/) not back slashes (\)! \n')
         start()
     elif not file_dir.endswith('/'):
         file_dir = file_dir + '/'
@@ -44,32 +44,32 @@ def start():
 # menu: would you like to add to the wardrobe or select an outfit?
 # add a close option
 def menu():
-    print 'Would you like to ADD to your wardrobe, SELECT an outfit, or QUIT?'
+    print('Would you like to ADD to your wardrobe, SELECT an outfit, or QUIT?')
     menu_select = ''
-    menu_select = raw_input('> ')
+    menu_select = input('> ')
     if menu_select.lower() in ('add', 'ad', 'a'):
-        print 'Beep bop boop beep bop....'
-        print 'Whirrr.... whirrr....'
+        print('Beep bop boop beep bop....')
+        print('Whirrr.... whirrr....')
         add_wardrobe()
     elif menu_select.lower() in ('select', 's'):
-        print 'Beep beep boop boop....'
+        print('Beep beep boop boop....')
         outfit_select()
     elif menu_select.lower() in ('quit', 'q'):
         exit
     else:
-        print 'Um. I didn\'t get that. Could you try again?'
+        print('Um. I didn\'t get that. Could you try again?')
         menu()
         return
 
 # data input
 def add_wardrobe():
-    print '\nWelcome to the wardrobe modification area. When given a list of options, please enter the number associated with that option. \n'
-    print 'Please enter a nickname for the article of clothing we\'re entering now, e.g. "Favorite red blouse".'
+    print('\nWelcome to the wardrobe modification area. When given a list of options, please enter the number associated with that option. \n')
+    print('Please enter a nickname for the article of clothing we\'re entering now, e.g. "Favorite red blouse".')
     global name
     name = ''
-    name = raw_input('> ')
+    name = input('> ')
     if name.lower() in('none', 'quit', 'stop', 'exit'):
-        back = raw_input('Do you want to return to the main menu? (Y/N)     > ')
+        back = input('Do you want to return to the main menu? (Y/N)     > ')
         if back.lower() == 'y':
             menu()
     # need to add a duplicate search here
@@ -77,16 +77,16 @@ def add_wardrobe():
         add_article()
 
 def add_article():
-    print 'What article of clothing are you adding? Please choose from: \n 1) Top \n 2) Bottom \n 3) Dress \n 4) Jacket/Cardigan \n 5) Quit'
+    print('What article of clothing are you adding? Please choose from: \n 1) Top \n 2) Bottom \n 3) Dress \n 4) Jacket/Cardigan \n 5) Quit')
     try:
         global article
         global second_type
         second_type = None
         article = None
-        article = int(raw_input('> '))
+        article = int(input('> '))
         if article == 1:
-            print 'You chose TOP. Is it a: \n 1) Blouse \n 2) Camisole/Tee \n 3) Shirt \n 4) Sweater \n 5) Oops, I didn\'t mean to choose TOP'
-            second_type = int(raw_input('> '))
+            print('You chose TOP. Is it a: \n 1) Blouse \n 2) Camisole/Tee \n 3) Shirt \n 4) Sweater \n 5) Oops, I didn\'t mean to choose TOP')
+            second_type = int(input('> '))
             if second_type in (1, 2, 3, 4):
                 color()
                 return
@@ -97,8 +97,8 @@ def add_article():
                 type_error()
                 return
         elif article == 2:
-            print 'You chose BOTTOM. Which type? \n 1) Pants \n 2) Skirt \n 3) Oops, I didn\'t mean to choose BOTTOM'
-            second_type = int(raw_input('> '))
+            print('You chose BOTTOM. Which type? \n 1) Pants \n 2) Skirt \n 3) Oops, I didn\'t mean to choose BOTTOM')
+            second_type = int(input('> '))
             if second_type == 3:
                 add_article()
                 return
@@ -121,7 +121,7 @@ def add_article():
         return
 
 def type_error():
-    print 'Whoa there. Let\'s take a deep breath and try again.'
+    print('Whoa there. Let\'s take a deep breath and try again.')
     add_article()
     return
 
@@ -129,26 +129,26 @@ def color():
     dicts()
     print('What color family is the ' + article_dict[article].lower() + ' in? \n 1) Warm \n 2) Cool \n 3) Neutral \n 4) Pattern')
     global art_color
-    art_color = int(raw_input('> '))
+    art_color = int(input('> '))
     if art_color in (1, 2, 3, 4):
         weather()
     else:
-        print 'Whoa there. Let\'s take a deep breath and try again.'
+        print('Whoa there. Let\'s take a deep breath and try again.')
         color()
 
 def weather():
     print('When would you want to wear this ' + article_dict[article].lower() + '? \n 1) When it\'s warm outside \n 2) When it\'s cold outside \n 3) Any weather')
     global art_weather
     art_weather = None
-    art_weather = int(raw_input('> '))
+    art_weather = int(input('> '))
     if art_weather in (1, 2, 3):
         review()
     else:
-        print 'Whoa there. Let\'s take a deep breath and try again.'
+        print('Whoa there. Let\'s take a deep breath and try again.')
         weather()
 
 def review():
-    print 'You\'re all done! Does this look right?'
+    print('You\'re all done! Does this look right?')
     print('Nickname:     ' + name)
     print('Article Type: ' + article_dict[article])
     if article in (1, 2):
@@ -156,9 +156,9 @@ def review():
     print('Color Family: ' + color_dict[art_color])
     print('Weather:      ' + weather_dict[art_weather])
     print('What do you think? \n 1) Looks great! \n 2) I need to change the article or ' + article_dict[article].lower() + ' type')
-    print ' 3) I need to change the color family \n 4) I need to change the weather type'
+    print(' 3) I need to change the color family \n 4) I need to change the weather type')
     review_choice = ''
-    review_choice = raw_input('> ')
+    review_choice = input('> ')
     if review_choice == '1':
         if not exists(file_dir + 'OOT5K.csv'):
             db = open(file_dir + 'OOT5K.csv', 'w')
@@ -178,12 +178,12 @@ def review():
     elif review_choice == '4':
         weather()
     else:
-        print 'Whoa there. Let\'s take a deep breath and try again.'
+        print('Whoa there. Let\'s take a deep breath and try again.')
         review()
 
 # select an outfit - randomize
 def outfit_select():
-    print 'Beep bop booooooooooooooooooooo.... p'
+    print('Beep bop booooooooooooooooooooo.... p')
     # read the wardrobe database
     colnames = ['name', 'article_type', 'second_type', 'art_color', 'art_weather']
     global wardrobe
@@ -201,7 +201,7 @@ def outfit_select():
 
 def outfit_randomizer():
     # randomly pick from each item type
-    print 'Beep bop boop boop'
+    print('Beep bop boop boop')
     item_1 = None
     item_2 = None
     item_3 = None
@@ -223,7 +223,7 @@ def outfit_randomizer():
 def outfit_choice():
     print(' 1) Pick again! \n 2) Main menu \n 3) Quit')
     choice = ''
-    choice = raw_input('> ')
+    choice = input('> ')
     if choice == '1':
         outfit_randomizer()
     elif choice == '2':
@@ -231,7 +231,7 @@ def outfit_choice():
     elif choice == '3':
         exit
     else:
-        print 'Whoa there. Let\'s take a deep breath and try again.'
+        print('Whoa there. Let\'s take a deep breath and try again.')
         outfit_choice()
 
     # print 'Welcome to the outfit selection area. When given a list of options, please enter the number associated with that option.'
